@@ -5,7 +5,7 @@ import csv
 import requests
 from datetime import datetime
 
-API_KEY = "acd0425c5565a86f23a5711207dbcbf0a15e26a29c1c0c009dde115ed46e69e0"
+API_KEY = ""
 DATA_FOLDER = "tracking_data"
 RESULTS_FILE = f"{DATA_FOLDER}/rankings.json"
 CSV_FILE = f"{DATA_FOLDER}/rankings.csv"
