@@ -1,242 +1,107 @@
-import os
-import json
-import time
-import csv
-import requests
-from datetime import datetime
+# Open SEO — Automating SEO Tasks with Claude MCP
 
-API_KEY = ""
-DATA_FOLDER = "tracking_data"
-RESULTS_FILE = f"{DATA_FOLDER}/rankings.json"
-CSV_FILE = f"{DATA_FOLDER}/rankings.csv"
+Open SEO turns SERP (Search Engine Results Page) rank tracking into a set of
+[MCP](https://modelcontextprotocol.io) tools, so Claude can create SEO
+projects, check keyword rankings, and export reports on request — no manual
+script running required.
 
-def print_header():
-    print("\n" + "="*70)
-    print("SERP RANK TRACKER - Track Your Client Keywords")
-    print("="*70 + "\n")
+Rankings are fetched from [SerpApi](https://serpapi.com), using the
+**company's own SerpApi account only**. Never hardcode a key in source or use
+a personal account key.
 
-def create_data_folder():
-    os.makedirs(DATA_FOLDER, exist_ok=True)
+## Setup
 
-def load_data():
-    if os.path.exists(RESULTS_FILE):
-        with open(RESULTS_FILE, 'r') as f:
-            return json.load(f)
-    return {}
+1. Install dependencies:
 
-def save_data(data):
-    with open(RESULTS_FILE, 'w') as f:
-        json.dump(data, f, indent=2)
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-def search_keyword(keyword, domain, location="United States"):
-    try:
-        print(f"   Searching: {keyword}...", end=" ", flush=True)
-        
-        url = "https://serpapi.com/search"
-        params = {
-            "q": keyword,
-            "location": location,
-            "api_key": API_KEY,
-            "num": 100
-        }
-        
-        response = requests.get(url, params=params)
-        results = response.json().get('organic_results', [])
-        
-        for idx, result in enumerate(results, 1):
-            if domain.lower() in result.get('link', '').lower():
-                print(f"RANK #{idx}")
-                return idx, result['link']
-        
-        print(f"NOT RANKED")
-        return None, None
-    except Exception as e:
-        print(f"ERROR: {str(e)[:50]}")
-        return None, None
+2. Configure the company SerpApi key as an environment variable (never in
+   code, never committed):
 
-def main():
-    print_header()
-    create_data_folder()
-    data = load_data()
-    
-    while True:
-        print("\n" + "="*70)
-        print("MAIN MENU")
-        print("="*70)
-        print("1. Add New Project")
-        print("2. Track Rankings")
-        print("3. View Rankings")
-        print("4. Export to Excel")
-        print("5. Delete Project")
-        print("0. Exit")
-        print("="*70)
-        
-        choice = input("Choose (0-5): ").strip()
-        
-        if choice == "1":
-            print("\n" + "="*70)
-            print("ADD PROJECT")
-            print("="*70)
-            
-            name = input("Project name: ").strip()
-            if not name or name in data:
-                print("Invalid!")
-                continue
-            
-            domain = input("Domain (e.g., example.com): ").strip()
-            if not domain:
-                print("Domain required!")
-                continue
-            
-            keywords = []
-            print("\nAdd keywords:")
-            while True:
-                kw = input(f"Keyword #{len(keywords)+1} (or ENTER to finish): ").strip()
-                if not kw:
-                    if keywords:
-                        break
-                    print("Add at least 1!")
-                    continue
-                keywords.append({"keyword": kw, "current_rank": None})
-                print(f"   Added: {kw}")
-            
-            data[name] = {
-                "domain": domain,
-                "keywords": keywords,
-                "created_at": datetime.now().isoformat()
-            }
-            save_data(data)
-            print(f"\nProject created!")
-        
-        elif choice == "2":
-            if not data:
-                print("Add a project first!")
-                continue
-            
-            print("\n" + "="*70)
-            print("TRACK RANKINGS")
-            print("="*70)
-            print("\nProjects:")
-            projects = list(data.keys())
-            for i, p in enumerate(projects, 1):
-                print(f"  {i}. {p}")
-            
-            try:
-                idx = int(input("\nSelect (number): ")) - 1
-                project_name = projects[idx]
-            except:
-                print("Invalid!")
-                continue
-            
-            project = data[project_name]
-            print(f"\nTracking: {project_name}")
-            print(f"Domain: {project['domain']}\n")
-            
-            for kw_data in project["keywords"]:
-                keyword = kw_data["keyword"]
-                domain = project["domain"]
-                rank, url = search_keyword(keyword, domain)
-                kw_data["previous_rank"] = kw_data.get("current_rank")
-                kw_data["current_rank"] = rank
-                kw_data["url"] = url
-                kw_data["timestamp"] = datetime.now().isoformat()
-                time.sleep(1)
-            
-            save_data(data)
-            print(f"\nDone!")
-        
-        elif choice == "3":
-            if not data:
-                print("No data!")
-                continue
-            
-            print("\nProjects:")
-            projects = list(data.keys())
-            for i, p in enumerate(projects, 1):
-                print(f"  {i}. {p}")
-            
-            try:
-                idx = int(input("\nSelect (number): ")) - 1
-                project_name = projects[idx]
-            except:
-                print("Invalid!")
-                continue
-            
-            project = data[project_name]
-            print(f"\n" + "="*70)
-            print(f"Rankings: {project_name}")
-            print("="*70)
-            print(f"{'Keyword':<30} {'Rank':<12} {'Status':<20}")
-            print("="*70)
-            
-            for kw in project["keywords"]:
-                keyword = kw["keyword"][:29]
-                rank = kw.get("current_rank", "?")
-                
-                if isinstance(rank, int):
-                    if rank <= 10:
-                        status = "TOP 10"
-                    else:
-                        status = "OTHER"
-                else:
-                    status = "NOT RANKED"
-                
-                rank_str = f"#{rank}" if isinstance(rank, int) else str(rank)
-                print(f"{keyword:<30} {rank_str:<12} {status:<20}")
-            
-            print("="*70)
-            input("\nPress ENTER...")
-        
-        elif choice == "4":
-            if not data:
-                print("No data!")
-                continue
-            
-            with open(CSV_FILE, 'w', newline='') as f:
-                writer = csv.writer(f)
-                writer.writerow(['Project', 'Keyword', 'Rank', 'Status'])
-                
-                for project_name, project in data.items():
-                    for kw in project["keywords"]:
-                        rank = kw.get("current_rank", "Not Ranked")
-                        status = "TOP 10" if isinstance(rank, int) and rank <= 10 else "Other"
-                        writer.writerow([project_name, kw["keyword"], rank, status])
-            
-            print(f"\nExported to: {CSV_FILE}")
-            input("Press ENTER...")
-        
-        elif choice == "5":
-            if not data:
-                print("No projects!")
-                continue
-            
-            print("\nProjects:")
-            projects = list(data.keys())
-            for i, p in enumerate(projects, 1):
-                print(f"  {i}. {p}")
-            
-            try:
-                idx = int(input("\nSelect to delete (number): ")) - 1
-                project_name = projects[idx]
-                confirm = input(f"Delete '{project_name}'? (yes/no): ").strip().lower()
-                if confirm == "yes":
-                    del data[project_name]
-                    save_data(data)
-                    print("Deleted!")
-            except:
-                print("Invalid!")
-        
-        elif choice == "0":
-            print("\nGoodbye!")
-            break
-        
-        else:
-            print("Invalid!")
+   ```bash
+   cp .env.example .env
+   # edit .env and set SERPAPI_API_KEY to the company account key
+   ```
 
-if __name__ == "__main__":
-    try:
-        main()
-    except KeyboardInterrupt:
-        print("\n\nStopped!")
-    except Exception as e:
-        print(f"\nError: {e}")
+3. Run the MCP server directly to verify it starts:
+
+   ```bash
+   python -m open_seo.server
+   ```
+
+## Connecting to Claude
+
+### Claude Code
+
+```bash
+claude mcp add open-seo -- python -m open_seo.server
+```
+
+Set `SERPAPI_API_KEY` in the environment Claude Code runs in (e.g. export it
+in your shell profile, or add it under `env` for the server in
+`.claude/settings.json` / `.mcp.json`), pointing at the company account key.
+
+### Claude Desktop
+
+Add to `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "open-seo": {
+      "command": "python",
+      "args": ["-m", "open_seo.server"],
+      "env": {
+        "SERPAPI_API_KEY": "<company account key>"
+      }
+    }
+  }
+}
+```
+
+## Available tools
+
+| Tool | Description |
+| --- | --- |
+| `add_project(name, domain, keywords)` | Create a new SEO tracking project for a domain with a starting keyword list. Domain must be `zebratechies.com`, `ztsindia.com`, or a subdomain of one of these. |
+| `list_projects()` | List all tracked projects with domain and keyword count. |
+| `track_rankings(project_name, location="United States")` | Query current Google rankings for every keyword in a project via SerpApi. |
+| `get_rankings(project_name)` | Return the last-known rankings for a project without re-querying SerpApi. |
+| `export_rankings_csv(project_name=None)` | Export rankings to CSV (all projects, or one). Returns the file path. |
+| `delete_project(project_name)` | Delete a project and its ranking history. |
+
+### Link building
+
+These tools help research and manage off-page link-building outreach for a
+project. They **only research, draft, and track** — nothing is submitted,
+posted, or emailed automatically. Mass, unreviewed link placement (auto
+directory submissions, comment spam, PBNs) violates Google's link-spam
+policy and risks a manual action, so every prospect and draft is meant for a
+human to review before acting on it.
+
+| Tool | Description |
+| --- | --- |
+| `find_link_opportunities(project_name, niche, opportunity_types=None, num_results=10, location="United States")` | Search for guest-post, resource-page, directory, and roundup opportunities for a niche via SerpApi, and save new ones as prospects. |
+| `get_link_prospects(project_name, status=None)` | List saved prospects for a project, optionally filtered by status. |
+| `research_link_prospect_contact(project_name, prospect_url)` | Fetch a prospect's page and look for a contact email or contact form. |
+| `draft_link_outreach_email(project_name, prospect_url, client_name, sender_name, niche, contact_first_name=None)` | Draft a professional outreach email (subject + body) for a prospect, for human review. |
+| `update_link_prospect_status(project_name, prospect_url, status, notes="")` | Update a prospect's status: `found`, `contacted`, `replied`, `published`, or `declined`. |
+| `verify_link_placement(project_name, prospect_url)` | Fetch the prospect page and check whether it now actually links to the project's domain; marks it `published` if found. |
+
+## Data storage
+
+Project, ranking, and link-prospect data is stored locally as JSON/CSV under
+`tracking_data/` (configurable via `OPEN_SEO_DATA_DIR`). This directory is
+gitignored — it holds client keyword and outreach data, not code.
+
+## Project layout
+
+```
+open_seo/
+  server.py          # MCP server + tool definitions
+  serpapi_client.py  # SerpApi request wrapper (company key via env var)
+  storage.py          # JSON/CSV persistence for projects, rankings, and link prospects
+  link_building.py    # Link prospecting, contact discovery, outreach drafting, verification
+```
