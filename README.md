@@ -65,7 +65,7 @@ Add to `claude_desktop_config.json`:
 
 | Tool | Description |
 | --- | --- |
-| `add_project(name, domain, keywords)` | Create a new SEO tracking project for a domain with a starting keyword list. |
+| `add_project(name, domain, keywords)` | Create a new SEO tracking project for a domain with a starting keyword list. Domain must be `zebratechies.com`, `ztsindia.com`, or a subdomain of one of these. |
 | `list_projects()` | List all tracked projects with domain and keyword count. |
 | `track_rankings(project_name, location="United States")` | Query current Google rankings for every keyword in a project via SerpApi. |
 | `get_rankings(project_name)` | Return the last-known rankings for a project without re-querying SerpApi. |

@@ -18,12 +18,29 @@ from open_seo.serpapi_client import search_keyword
 
 mcp = FastMCP("open-seo")
 
+# Only the company's own sites may be tracked with the shared SerpApi account.
+ALLOWED_DOMAINS = ("zebratechies.com", "ztsindia.com")
+
+
+def _is_allowed_domain(domain: str) -> bool:
+    domain = domain.strip().lower()
+    domain = domain.removeprefix("https://").removeprefix("http://").removeprefix("www.")
+    domain = domain.split("/", 1)[0]
+    return any(domain == d or domain.endswith(f".{d}") for d in ALLOWED_DOMAINS)
+
 
 @mcp.tool()
 def add_project(name: str, domain: str, keywords: list[str]) -> dict:
     """Create a new SEO tracking project for a domain with a starting list of keywords."""
     if not name or not domain or not keywords:
         raise ValueError("name, domain, and at least one keyword are required")
+
+    if not _is_allowed_domain(domain):
+        raise ValueError(
+            f"Domain '{domain}' is not allowed. Only the company's own domains "
+            f"({', '.join(ALLOWED_DOMAINS)}) can be tracked with the shared "
+            "SerpApi account."
+        )
 
     data = storage.load_data()
     if name in data:
