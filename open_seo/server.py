@@ -13,7 +13,7 @@ import time
 
 from mcp.server.fastmcp import FastMCP
 
-from open_seo import storage
+from open_seo import link_building, storage
 from open_seo.serpapi_client import search_keyword
 
 mcp = FastMCP("open-seo")
@@ -117,6 +117,140 @@ def delete_project(project_name: str) -> dict:
     del data[project_name]
     storage.save_data(data)
     return {"deleted": project_name}
+
+
+PROSPECT_STATUSES = {"found", "contacted", "replied", "published", "declined"}
+
+
+def _project_domain(project_name):
+    data = storage.load_data()
+    if project_name not in data:
+        raise ValueError(f"Project '{project_name}' not found")
+    return data[project_name]["domain"]
+
+
+def _get_prospect(project_name, prospect_url):
+    prospects = storage.load_prospects()
+    project_prospects = prospects.get(project_name, {})
+    if prospect_url not in project_prospects:
+        raise ValueError(f"Prospect '{prospect_url}' not found for project '{project_name}'")
+    return prospects, project_prospects
+
+
+@mcp.tool()
+def find_link_opportunities(
+    project_name: str,
+    niche: str,
+    opportunity_types: list[str] | None = None,
+    num_results: int = 10,
+    location: str = "United States",
+) -> list[dict]:
+    """Search for guest-post, resource-page, directory, and roundup link-building
+    opportunities for a niche, and save new ones as prospects under a project.
+    Nothing is contacted or submitted automatically — the results are for
+    human review before any outreach.
+    """
+    _project_domain(project_name)  # validates the project exists
+
+    found = link_building.find_link_prospects(
+        niche, opportunity_types=opportunity_types, num_results=num_results, location=location
+    )
+
+    prospects = storage.load_prospects()
+    project_prospects = prospects.setdefault(project_name, {})
+    for p in found:
+        if p["url"] not in project_prospects:
+            project_prospects[p["url"]] = {
+                **p,
+                "status": "found",
+                "emails": [],
+                "has_contact_form": None,
+                "notes": "",
+                "found_at": storage.now_iso(),
+            }
+    storage.save_prospects(prospects)
+
+    return list(project_prospects.values())
+
+
+@mcp.tool()
+def get_link_prospects(project_name: str, status: str | None = None) -> list[dict]:
+    """List saved link-building prospects for a project, optionally filtered by status."""
+    rows = list(storage.load_prospects().get(project_name, {}).values())
+    if status:
+        rows = [r for r in rows if r.get("status") == status]
+    return rows
+
+
+@mcp.tool()
+def research_link_prospect_contact(project_name: str, prospect_url: str) -> dict:
+    """Fetch a saved prospect's page and look for an email address or contact form."""
+    prospects, project_prospects = _get_prospect(project_name, prospect_url)
+
+    info = link_building.scrape_contact_info(prospect_url)
+    project_prospects[prospect_url]["emails"] = info["emails"]
+    project_prospects[prospect_url]["has_contact_form"] = info["has_contact_form"]
+    storage.save_prospects(prospects)
+    return project_prospects[prospect_url]
+
+
+@mcp.tool()
+def draft_link_outreach_email(
+    project_name: str,
+    prospect_url: str,
+    client_name: str,
+    sender_name: str,
+    niche: str,
+    contact_first_name: str | None = None,
+) -> dict:
+    """Draft a professional outreach email for a saved link prospect. Returns
+    a subject/body pair for human review — nothing is sent from here."""
+    client_domain = _project_domain(project_name)
+    _, project_prospects = _get_prospect(project_name, prospect_url)
+    prospect = project_prospects[prospect_url]
+
+    return link_building.draft_outreach_email(
+        site_name=prospect.get("title") or prospect_url,
+        niche=niche,
+        client_name=client_name,
+        client_domain=client_domain,
+        sender_name=sender_name,
+        opportunity_type=prospect.get("opportunity_type", "guest_post"),
+        contact_first_name=contact_first_name,
+    )
+
+
+@mcp.tool()
+def update_link_prospect_status(
+    project_name: str, prospect_url: str, status: str, notes: str = ""
+) -> dict:
+    """Update a link prospect's status (found, contacted, replied, published, declined)."""
+    if status not in PROSPECT_STATUSES:
+        raise ValueError(f"status must be one of {sorted(PROSPECT_STATUSES)}")
+
+    prospects, project_prospects = _get_prospect(project_name, prospect_url)
+    project_prospects[prospect_url]["status"] = status
+    project_prospects[prospect_url]["notes"] = notes
+    project_prospects[prospect_url][f"{status}_at"] = storage.now_iso()
+    storage.save_prospects(prospects)
+    return project_prospects[prospect_url]
+
+
+@mcp.tool()
+def verify_link_placement(project_name: str, prospect_url: str) -> dict:
+    """Check whether a prospect page now actually links back to the project's
+    domain, to verify a placed backlink went live. Marks the prospect
+    'published' if found."""
+    domain = _project_domain(project_name)
+    prospects, project_prospects = _get_prospect(project_name, prospect_url)
+
+    result = link_building.link_exists_on_page(prospect_url, domain)
+    if result.get("linked"):
+        project_prospects[prospect_url]["status"] = "published"
+        project_prospects[prospect_url]["published_at"] = storage.now_iso()
+        storage.save_prospects(prospects)
+
+    return {**project_prospects[prospect_url], "live_check": result}
 
 
 def main():

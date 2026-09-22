@@ -46,3 +46,27 @@ def search_keyword(keyword, domain, location="United States", num_results=100):
             return idx, result["link"]
 
     return None, None
+
+
+def search_web(query, location="United States", num_results=10):
+    """Return up to `num_results` organic results for a raw search query, as
+    a list of {title, url, snippet} dicts.
+    """
+    params = {
+        "q": query,
+        "location": location,
+        "api_key": _api_key(),
+        "num": num_results,
+    }
+    response = requests.get(SERPAPI_URL, params=params, timeout=30)
+    response.raise_for_status()
+    results = response.json().get("organic_results", [])
+
+    return [
+        {
+            "title": r.get("title", ""),
+            "url": r.get("link", ""),
+            "snippet": r.get("snippet", ""),
+        }
+        for r in results[:num_results]
+    ]

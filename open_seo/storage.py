@@ -8,6 +8,7 @@ from datetime import datetime, timezone
 DATA_FOLDER = os.environ.get("OPEN_SEO_DATA_DIR", "tracking_data")
 RESULTS_FILE = os.path.join(DATA_FOLDER, "rankings.json")
 CSV_FILE = os.path.join(DATA_FOLDER, "rankings.csv")
+PROSPECTS_FILE = os.path.join(DATA_FOLDER, "link_prospects.json")
 
 
 def _ensure_data_folder():
@@ -30,6 +31,21 @@ def save_data(data):
 
 def now_iso():
     return datetime.now(timezone.utc).isoformat()
+
+
+def load_prospects():
+    """Load link-building prospects, keyed by project name then prospect URL."""
+    _ensure_data_folder()
+    if os.path.exists(PROSPECTS_FILE):
+        with open(PROSPECTS_FILE, "r") as f:
+            return json.load(f)
+    return {}
+
+
+def save_prospects(data):
+    _ensure_data_folder()
+    with open(PROSPECTS_FILE, "w") as f:
+        json.dump(data, f, indent=2)
 
 
 def export_csv(data, project_name=None):
