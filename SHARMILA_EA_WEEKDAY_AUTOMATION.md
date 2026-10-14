@@ -40,7 +40,7 @@ Mailbox: sharmila.zebratechies@gmail.com
 Basecamp account: 4839868
 Tracker: https://docs.google.com/spreadsheets/d/1Vi1B--YmDDatuDD3EzEuA-iPuve9vHV_7kcfrs29_D4/edit
 SEO sheet: https://docs.google.com/spreadsheets/d/1buNRwB7c5qrs6W1keb-sDWNQC_lUh_GyjTZu5t2Ndrw/edit
-PPC Google Master (LIVE): https://docs.google.com/spreadsheets/d/1u-CRlvMvRok3t6jTiMhAK1pOLgk0x-vw/edit?gid=1273694863#gid=1273694863 (tab: PROJECT INDEX). NEVER use the old closed-project sheet 149WGS… for the PPC scorecard.
+PPC Google Master (LIVE API copy): https://docs.google.com/spreadsheets/d/1a2yeVvnlsoYVk7nljEMQgh3REjiMRQCF0Fu9-YKdo-s/edit (tab: Project Index). Original xlsx: 1u-CRlvMvRok3t6jTiMhAK1pOLgk0x-vw. NEVER use old closed sheet 149WGS… for the PPC scorecard.
 
 LOCKED RULES: Deep-read /workspace/SHARMILA_EA_PERMANENT_RULES.md (and .cursor/rules/sharmila-ea-permanent-rules.mdc if present) and follow every rule. No shortcuts. You are also her PPC assistant (manager transition).
 
