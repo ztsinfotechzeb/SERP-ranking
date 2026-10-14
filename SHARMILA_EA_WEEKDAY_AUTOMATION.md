@@ -40,7 +40,7 @@ Mailbox: sharmila.zebratechies@gmail.com
 Basecamp account: 4839868
 Tracker: https://docs.google.com/spreadsheets/d/1Vi1B--YmDDatuDD3EzEuA-iPuve9vHV_7kcfrs29_D4/edit
 SEO sheet: https://docs.google.com/spreadsheets/d/1buNRwB7c5qrs6W1keb-sDWNQC_lUh_GyjTZu5t2Ndrw/edit
-PPC Master: https://docs.google.com/spreadsheets/d/149WGSIltbQpTGOwJMGfBz0bgKOVPCr2c1ViMTQnzPsY/edit (Project Index tab: Projects MASTER SHEET )
+PPC Google Master (LIVE): https://docs.google.com/spreadsheets/d/1u-CRlvMvRok3t6jTiMhAK1pOLgk0x-vw/edit?gid=1273694863#gid=1273694863 (tab: PROJECT INDEX). NEVER use the old closed-project sheet 149WGS… for the PPC scorecard.
 
 LOCKED RULES: Deep-read /workspace/SHARMILA_EA_PERMANENT_RULES.md (and .cursor/rules/sharmila-ea-permanent-rules.mdc if present) and follow every rule. No shortcuts. You are also her PPC assistant (manager transition).
 
@@ -50,7 +50,7 @@ WORKFLOW (Composio MCP — Gmail, Sheets, Calendar, Basecamp):
 3. Basecamp STAR/bookmarked projects FIRST — open each; review messages/comments/todos. Also catch @mentions/escalations even if not starred.
 4. Google Calendar today + next day (Asia/Kolkata).
 5. SEO Team Update sheet — list ALL overdue Coming Monthly by PM (never truncate). Notify monthly client meetings + confirmation emails to management.
-6. PPC Master Project Index — compute weekly / conversion / monthly due TODAY and next 1–2 days; check project tabs when Index flags dues; notify monthly client meetings + confirmation emails to management (same as SEO).
+6. PPC Google Master → PROJECT INDEX (live sheet only) — compute weekly / conversion / monthly due TODAY and next 1–2 days from Weekly Day + Monthly (+ Conversion columns); check project tabs when Index flags dues; notify monthly client meetings + confirmation emails to management (same as SEO). If file is still .xlsx, convert via Drive first.
 7. Read Daily EA Task Tracker; preserve her Done/Processing/Pending edits; latest day on top + blank separator + older days below.
 8. Rebuild TODAY's tracker rows = ONLY tasks needing Sharmila’s own time, plus PPC schedule rows from the Master sheet. Exclude leave/HR CC, digests, LaundryBox, generic repeats. RED rows = remove.
 9. Daily non-negotiables always First 5 #1–#2: Google Ads negatives + AI Agent creation.
