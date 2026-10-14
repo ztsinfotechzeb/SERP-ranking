@@ -133,9 +133,9 @@ Mercer Island, Mill Creek, North Bend, Redmond, Renton, Sammamish, Seattle, Shor
 
 | Spend | Impr. | Clicks | CTR | Conv. | CPA | Conv. rate | Qualified leads |
 |---|---|---|---|---|---|---|---|
-| 5,499.23? see note: **6,499.23** | 1,053,761 | 5,679 | 8.66% (sheet) | 1,102.03 | 5.90 | 6.18% (sheet) | not in sheet |
+| 6,499.23 | 1,053,761 | 5,679 | 8.66% (sheet) | 1,102.03 | 5.90 | 6.18% (sheet) | not in sheet |
 
-Spend is **6,499.23** (currency not stated; USD assumed). Checks (computed): CTR 5,679 / 1,053,761 = **0.54%**, not
+Spend currency is not stated in the cell (the budget uses "$"; US client, so USD is likely). Checks (computed): CTR 5,679 / 1,053,761 = **0.54%**, not
 8.66%. Conversions per click 1,102.03 / 5,679 = **19.4%**, not 6.18%. CPA 6,499.23 / 1,102.03 = 5.90 (matches).
 Spend is about 3,250 a month (computed), below the sheet's 4,800 monthly budget. Re-pull from Google Ads before
 reporting. Revenue and ROAS per campaign: not in sheet (client feedback says 4.4x to 5.2x).
