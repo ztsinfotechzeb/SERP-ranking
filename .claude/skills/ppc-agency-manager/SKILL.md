@@ -108,6 +108,49 @@ and budget pacing off by more than 15%. Output a prioritized to-do list per team
 - Dates as DD-MMM-YYYY. Always state the currency.
 - End each task by listing: sheet rows updated, items waiting on approval, next follow-up date.
 
+## 7. Per-client skills
+
+Every account tab in the Master Sheet has its own client skill in `.claude/skills/client-*/`. When a task names
+a client, domain, contact or account ID, load that client's skill as well as this one. The client skill holds the
+account facts, history and open actions. This file holds the agency rules. The live sheet tab always wins.
+
+| Sheet tab | Client skill | Platform | Owner |
+|---|---|---|---|
+| bluejacketinc.com | client-bluejacketinc | Google | Iva Swarnakar |
+| kevin els | client-kevin-els | Google | Iva Swarnakar |
+| travelance.ca | client-travelance | Google | Iva Swarnakar |
+| cginsurancesb.com | client-cginsurancesb | Google | Iva Swarnakar |
+| dbr exports | client-dbr-exports | Google | Iva Swarnakar |
+| victorianspas.com | client-victorianspas | Google | Utpal Dey |
+| Betterfit | client-betterfit-google | Google | Utpal Dey |
+| FisioCream Amazon | client-fisiocream-amazon | Amazon | Utpal Dey |
+| KB Commercial | client-kb-commercial | Google | Utpal Dey |
+| PBM Law | client-pbm-law | Google | Tamasa Kundu |
+| Rilu Google | client-rilu-google | Google | Tamasa Kundu |
+| Flee Google | client-flee-google | Google | Tamasa Kundu |
+| Promise | client-promise-training | Google | Tamasa Kundu |
+| Intime Immigration | client-intime-immigration | Google | Tamasa Kundu |
+| ELS | client-elevated-luxury-studio | Google | Tamasa Kundu |
+| German Star Gear | client-german-star-gear | Google + Meta | Aman Sharma |
+| Babies and Beyond | client-babies-and-beyond | Google | Aman Sharma |
+| Nurture | client-nurture-africa | Google | Aman Sharma |
+| Spear point | client-spearpoint-search | Google | Aman Sharma |
+| Party Hire | client-party-hire | Google | Aman Sharma |
+| Peachtree | client-peachtree | Google | Aman Sharma |
+| Betterfit Meta | client-betterfit-meta | Meta | Aman Sharma |
+| Flee Meta | client-flee-meta | Meta | Aman Sharma |
+| Rilu Meta | client-rilu-meta | Meta | Aman Sharma |
+| Dr. Nathoo | client-dr-nathoo | Google | Deepayan Halder |
+| GFI | client-gfi-solutions | Google | Deepayan Halder |
+| C4 Photo Safari | client-c4-photo-safari | Google | Deepayan Halder |
+| Elite | client-elite-accounting | Google | Deepayan Halder |
+| Summit Executive | client-summit-executive | Google | Deepayan Halder |
+| Brightersmile Dapto | client-brightersmile-dapto | Google | Deepayan Halder |
+
+**New client:** copy an existing client skill folder, rename it `client-<brand>`, and fill it from the new tab.
+**After a task:** if a fact in Row 5 changed (budget, stage, tracking, risk, owner, open actions), update the
+client skill too so it does not go stale.
+
 ## Reference files
 
 - `references/master-sheet-schema.md` — every column, how to read/write it, log-row rules.
