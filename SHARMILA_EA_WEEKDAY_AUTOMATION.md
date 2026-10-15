@@ -63,6 +63,8 @@ BRIEF FORMAT (locked): EMAILS A–E · SENT CHASE · STARRED BASECAMP ATTENTION 
 
 QUALITY BAR:
 - Missed client @mention / STAR skip = failure
+- Omitting / under-weighting dedicated PPC UPDATE or missing tracker PPC rows for Index dues today + next 1–2 days = failure (locked 15 Oct)
+- Thin one-line PPC mention is not enough — name each weekly / conversion / monthly project (owner + client) + management confirmation emails
 - Meeting Done ≠ deliverable Done
 - Every HIGH email item = concrete tracker row with next action
 - Do not invent status; if a source fails, say so briefly and continue with available sources

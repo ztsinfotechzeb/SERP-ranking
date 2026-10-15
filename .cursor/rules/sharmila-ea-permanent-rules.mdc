@@ -70,6 +70,8 @@ Every brief must include a dedicated **PPC UPDATE** section from the Project Ind
 ## Quality bar after 13 Aug correction
 - Missed client @mention (e.g. Sydney Roofing / Payal: “client not getting leads… FYI Sharmila”) = **failure**
 - Skipping Basecamp STAR projects / saying “no Basecamp” while logged in = **failure**
+- Omitting or under-weighting the dedicated **PPC UPDATE** section / skipping live Project Index scan / missing tracker PPC rows for dues today + next 1–2 days = **failure** (locked after 15 Oct resend)
+- Thin one-line PPC mention is not enough — list weekly · conversion · monthly by project (owner + client) for today and next 1–2 days, plus management confirmation emails
 - Generic HR/leave rows = **failure**
 - Repetitive low-value rows with no new action = **failure**
 - Every HIGH item in the email must appear as a concrete tracker row with clear next action
