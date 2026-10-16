@@ -50,19 +50,24 @@ WORKFLOW (Composio MCP — Gmail, Sheets, Calendar, Basecamp):
 3. Basecamp STAR/bookmarked projects FIRST — open each; review messages/comments/todos. Also catch @mentions/escalations even if not starred.
 4. Google Calendar today + next day (Asia/Kolkata).
 5. SEO Team Update sheet — list ALL overdue Coming Monthly by PM (never truncate). Notify monthly client meetings + confirmation emails to management.
-6. PPC Google Master → PROJECT INDEX (live sheet only) — compute weekly / conversion / monthly due TODAY and next 1–2 days from Weekly Day + Monthly (+ Conversion columns); check project tabs when Index flags dues; notify monthly client meetings + confirmation emails to management (same as SEO). If file is still .xlsx, convert via Drive first.
+6. PPC Google Master → PROJECT INDEX (live sheet only) — compute weekly / conversion / monthly due TODAY and next 1–2 days from Weekly Day + Monthly (+ Conversion columns); check project tabs when Index flags dues. Billing windows (e.g. 09th-08th, 1st-30th) = start day only; Each Month 15 to 16 = inclusive. **POST-MONTHLY FOLLOW-UPS (locked 15 Oct):** after monthly report is SENT (never before), notify with exact **domain name** for BOTH (1) confirmation email to management and (2) meeting request to client. Name yesterday’s monthly domain(s) every brief; add today’s once sent. If file is still .xlsx, convert via Drive first.
 7. Read Daily EA Task Tracker; preserve her Done/Processing/Pending edits; latest day on top + blank separator + older days below.
 8. Rebuild TODAY's tracker rows = ONLY tasks needing Sharmila’s own time, plus PPC schedule rows from the Master sheet. Exclude leave/HR CC, digests, LaundryBox, generic repeats. RED rows = remove.
 9. Daily non-negotiables always First 5 #1–#2: Google Ads negatives + AI Agent creation.
 10. Clear + batch-update the tracker sheet (include Category=PPC for Master-schedule items).
 11. Send HTML Gmail to sharmila.zebratechies@gmail.com.
     Subject: Good Morning Sharmila — Action Brief + Tracker Updated | <Day> <DD> <Mon> <YYYY>
+    **CRITICAL (locked 16 Oct):** The email HTML body MUST include the full PPC UPDATE section (weekly · conversion · monthly named projects for today + next 1–2 days + POST-MONTHLY domain follow-ups). Tracker update alone / “see Master sheet” one-liner = failure. Same email = full PPC details.
 12. Reply in the agent run with Gmail open link + First 5 + PPC scorecard + tracker scorecard.
 
-BRIEF FORMAT (locked): EMAILS A–E · SENT CHASE · STARRED BASECAMP ATTENTION · PPC UPDATE (today + next 1–2 days) · SEO chase · Calendar · First 5 · Risks · Tracker scorecard.
+BRIEF FORMAT (locked): EMAILS A–E · SENT CHASE · STARRED BASECAMP ATTENTION · PPC UPDATE (today + next 1–2 days) · POST-MONTHLY FOLLOW-UPS (named domains: management confirmation + client meeting — only after monthly sent) · SEO chase · Calendar · First 5 · Risks · Tracker scorecard.
 
 QUALITY BAR:
 - Missed client @mention / STAR skip = failure
+- Omitting / under-weighting dedicated PPC UPDATE or missing tracker PPC rows for Index dues today + next 1–2 days = failure (locked 15 Oct)
+- Daily email body without full PPC Master details (tracker-only or see-sheet only) = failure (locked 16 Oct)
+- Thin one-line PPC mention is not enough — name each weekly / conversion / monthly project (owner + client)
+- Missing named-domain POST-MONTHLY FOLLOW-UPS after monthly send (management confirmation + client meeting request) = failure
 - Meeting Done ≠ deliverable Done
 - Every HIGH email item = concrete tracker row with next action
 - Do not invent status; if a source fails, say so briefly and continue with available sources
