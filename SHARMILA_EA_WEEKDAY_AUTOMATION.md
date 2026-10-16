@@ -57,6 +57,7 @@ WORKFLOW (Composio MCP — Gmail, Sheets, Calendar, Basecamp):
 10. Clear + batch-update the tracker sheet (include Category=PPC for Master-schedule items).
 11. Send HTML Gmail to sharmila.zebratechies@gmail.com.
     Subject: Good Morning Sharmila — Action Brief + Tracker Updated | <Day> <DD> <Mon> <YYYY>
+    **CRITICAL (locked 16 Oct):** The email HTML body MUST include the full PPC UPDATE section (weekly · conversion · monthly named projects for today + next 1–2 days + POST-MONTHLY domain follow-ups). Tracker update alone / “see Master sheet” one-liner = failure. Same email = full PPC details.
 12. Reply in the agent run with Gmail open link + First 5 + PPC scorecard + tracker scorecard.
 
 BRIEF FORMAT (locked): EMAILS A–E · SENT CHASE · STARRED BASECAMP ATTENTION · PPC UPDATE (today + next 1–2 days) · POST-MONTHLY FOLLOW-UPS (named domains: management confirmation + client meeting — only after monthly sent) · SEO chase · Calendar · First 5 · Risks · Tracker scorecard.
@@ -64,6 +65,7 @@ BRIEF FORMAT (locked): EMAILS A–E · SENT CHASE · STARRED BASECAMP ATTENTION 
 QUALITY BAR:
 - Missed client @mention / STAR skip = failure
 - Omitting / under-weighting dedicated PPC UPDATE or missing tracker PPC rows for Index dues today + next 1–2 days = failure (locked 15 Oct)
+- Daily email body without full PPC Master details (tracker-only or see-sheet only) = failure (locked 16 Oct)
 - Thin one-line PPC mention is not enough — name each weekly / conversion / monthly project (owner + client)
 - Missing named-domain POST-MONTHLY FOLLOW-UPS after monthly send (management confirmation + client meeting request) = failure
 - Meeting Done ≠ deliverable Done
