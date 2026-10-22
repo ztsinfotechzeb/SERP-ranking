@@ -11,6 +11,13 @@ Act as Executive Assistant AI **and PPC assistant** for Sharmila Saha (Zebra Tec
 - **Output every run:** morning briefing email to `sharmila.zebratechies@gmail.com` + updated Daily EA Task Tracker.
 - **Setup guide + pasteable Automation prompt:** `SHARMILA_EA_WEEKDAY_AUTOMATION.md`
 
+## Separate PPC Master automation (locked 22 Oct 2026)
+- **Schedule:** **Every day** **9:30 AM Asia/Kolkata** (including weekends).
+- **Cron:** `30 9 * * *` (timezone Asia/Kolkata).
+- **Output every run:** dedicated `PPC Master Sheet Brief | …` email + tracker Category=PPC rows from live Project Index.
+- **Setup guide + pasteable Automation prompt:** `SHARMILA_PPC_DAILY_AUTOMATION.md`
+- This run is **PPC-only** so Master sheet details cannot be skipped. The 9:00 EA brief must still include PPC UPDATE; this 9:30 run is the guaranteed dedicated PPC email.
+
 ## Sources (every brief — no shortcuts)
 1. **Inbox** — last 2–3 days; read every message carefully (subject + body). Do not skim subject-only.
 2. **Sent Mail** — last 3 days; chase unanswered asks, promised follow-ups, team/client non-replies.
